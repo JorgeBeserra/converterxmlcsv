@@ -53,6 +53,7 @@ struct Vales {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
+    loop {
     let matches = clap::Command::new("Conversor XML para CSV")
         .version("0.1.0")
         .author("Jorge Beserra <jorgebeserra@gmail.com>")
@@ -106,7 +107,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("{}", "Pressione Enter para sair...".bright_cyan());
     let _ = stdin().read_line(&mut String::new());
 
-    Ok(())
+    //Ok(())
+}
 }
 
 fn handle_comissao(comissao: Comissao, selected_file: &PathBuf) -> Result<(), Box<dyn Error>> {
