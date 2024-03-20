@@ -136,6 +136,7 @@ fn handle_arquivo_comissao(empresa: Empresa, selected_file: &PathBuf) -> Result<
         .from_writer(csv_file);
 
     let mut total_comissao: f64 = 0.0;
+    let mut total_meta: f64 = 0.0;
     let mut quantidade_funcionarios = 0;
 
     // Escreve o cabeçalho no arquivo CSV
@@ -150,6 +151,7 @@ fn handle_arquivo_comissao(empresa: Empresa, selected_file: &PathBuf) -> Result<
         };
 
         total_comissao += funcionario.valor.parse::<f64>().unwrap_or(0.0);
+        total_meta += meta_premio.parse::<f64>().unwrap_or(0.0);
         quantidade_funcionarios += 1;
         
         csv_writer.write_record(&[
@@ -165,7 +167,7 @@ fn handle_arquivo_comissao(empresa: Empresa, selected_file: &PathBuf) -> Result<
 
     csv_writer.flush()?;
 
-    println!("{}", format!("Dados exportados para {} com sucesso! \nQuantidade de funcionários: {}. \nTotal de vales: R$ {:.2}", csv_file_path.display(), quantidade_funcionarios, total_comissao).bright_green());
+    println!("{}", format!("Dados exportados para {} com sucesso! \nQuantidade de funcionários: {}. \nTotal de comissão: R$ {:.2}\nTotal por meta: R$ {:.2}", csv_file_path.display(), quantidade_funcionarios, total_comissao, total_meta).bright_green());
 
     Ok(())
 }
